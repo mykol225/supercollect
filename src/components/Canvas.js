@@ -3,10 +3,8 @@ import { useEffect, useRef, useCallback } from "react";
 const Canvas = props => {
 
   const draw = useCallback(ctx => {
-
     ctx.fillStyle = '#800080'
-    ctx.fillRect(100, 30, 20, 20)
-
+    ctx.fillRect(100, 100, 20, 20)
   }, [])
 
   const canvasRef = useRef(null)
@@ -14,14 +12,18 @@ const Canvas = props => {
   useEffect(()=> {
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')
+    const dpr = window.devicePixelRatio || 1
+    const rect = canvas.getBoundingClientRect()
+    context.canvas.width = rect.width * dpr
+    context.canvas.height = rect.height * dpr
 
+    context.scale(dpr, dpr)
     context.fillStyle = '#ffffff'
     context.fillRect(0, 0, context.canvas.width, context.canvas.height)
 
     draw(context)
   }, [draw])
 
-  
   return <canvas ref={canvasRef} {...props}></canvas>
 }
 
