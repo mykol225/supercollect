@@ -18,7 +18,7 @@ const Canvas = props => {
     context.canvas.height = rect.height * dpr
 
     context.scale(dpr, dpr)
-    context.fillStyle = '#ffffff'
+    context.fillStyle = '#202028'
     context.fillRect(0, 0, context.canvas.width, context.canvas.height)
 
     draw(context)

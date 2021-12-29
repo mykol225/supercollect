@@ -1,4 +1,4 @@
-/* CSS RESET */
+/****** CSS RESET ******/
 
 html,
 body {
@@ -6,7 +6,8 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 	overflow: hidden;
-	background-color: black;
+	background-color: #090a0e;
+	height: 100%;
 }
 
 button,
@@ -17,9 +18,165 @@ select {
 	color: rgb(179, 179, 179);
 }
 
-/* MAIN */
+p,
+h1,
+h2,
+h3 {
+	margin: 0;
+}
+
+#root,
+.App {
+	height: 100%;
+}
+
+.App {
+	padding: 10px;
+}
 
 canvas {
+	width: 300px;
+	height: 200px;
+	border-radius: 4px;
+}
+
+/***** SHARED CLASSES *****/
+
+.h3 {
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.panel {
+	box-sizing: border-box;
+	background-color: #111318;
+	color: white;
+	font-size: 12px;
+	border-radius: 8px;
+}
+
+.hor-p {
+	height: auto;
+	width: 100%;
+}
+
+.ver-p {
+	width: 200px;
+	padding-top: 5px;
+}
+
+.btn {
+	padding: 10px;
+	border-radius: 4px;
+	box-shadow: inset 0px 0px 0px 1px #424242;
+	color: #666666;
+	user-select: none;
+}
+
+.btn:hover {
+	box-shadow: inset 0px 0px 0px 1px #464646;
+	background-color: #2b2b2b;
+	color: #cccccc;
+}
+.btn:active {
+	box-shadow: none;
+	background-color: #6115f0;
+}
+
+.destructive-btn {
+	box-shadow: inset 0px 0px 0px 1px #c72828;
+	color: #c72828;
+}
+
+.destructive-btn:hover {
+	box-shadow: inset 0px 0px 0px 1px #ff4444;
+	background-color: #331d1d;
+	color: #ff4444;
+}
+.destructive-btn:active {
+	box-shadow: none;
+	background-color: #c72828;
+	color: white;
+}
+
+.rows {
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	padding: 10px 15px 10px 15px;
+	color: #a7a7a7;
+	user-select: none;
+	justify-content: stretch;
+}
+
+.btn-row {
+}
+
+.btn-row:hover {
+	background-color: #15161d;
+	color: #b8b8b8;
+}
+
+.btn-row:active {
+	box-shadow: inset 0px 0px 0px 1px #6115f0;
+	color: white;
+}
+
+.title {
+	color: white;
+}
+
+.tab {
+	font-size: 11px;
+	font-weight: 700;
+	text-align: center;
+	width: 100%;
+}
+
+.tab:hover {
+	color: #b8b8b8;
+}
+
+.tab:active {
+	color: white;
+	font-weight: 700;
+}
+
+/****** MAIN ******/
+
+#tools-panel {
+	display: flex;
+	gap: 10px;
+	padding: 10px;
+}
+
+#main-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+	height: 100%;
+	margin-top: 10px;
+}
+
+#layers-panel {
+}
+
+#viewport {
+	width: 300px;
+	height: 200px;
+	border-radius: 4px;
+	margin-top: 20px;
+}
+
+#inspector-panel {
+}
+
+/****** ARCHIVE ******/
+
+/* canvas {
 	width: 400px;
 	height: 300px;
 	margin: 10px;
@@ -55,4 +212,4 @@ canvas {
 	border-radius: 4px;
 	max-width: 100px;
 	visibility: visible;
-}
+} */
