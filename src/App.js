@@ -2,17 +2,25 @@ import './App.css';
 import Button from './components/Button';
 import Rows from './components/Rows';
 import Row from './components/Row';
-import Layer from './components/Layer';
 import Title from './components/Title';
 import Canvas from './components/Canvas';
 import Tab from './components/Tab';
+import TextInput from './components/TextInput';
+import Hr from './components/Hr';
+import { useLayer } from './components/useLayer'
+
 
 function App() {
+  const { onClickNewLayerComp, elementArray } = useLayer()
+
   return (
     <div className="App">
       <div id='tools-panel' className='panel hor-p'>
-        <Button>+ New layer</Button>
-        <Button type="destructive">Delete layer</Button>
+        <div id="tools">
+          <Button>+ New layer</Button>
+        </div>
+        <h3>New Collection</h3>
+        <Button>Export</Button>
       </div>
       <div id='main-container'>
         <div id='layers-panel' className='panel ver-p'>
@@ -20,15 +28,9 @@ function App() {
             <Row>
               <Title>Layers panel</Title>
             </Row>
-            <Row type="interactive">
-              <Layer>Layer1</Layer>
-            </Row>
-            <Row type="interactive">
-              <Layer>Layer1</Layer>
-            </Row>
-            <Row type="interactive">
-              <Layer>Layer1</Layer>
-            </Row>
+            <Hr />
+            {elementArray}
+            <Button onClick={onClickNewLayerComp}>New layer</Button>
           </Rows>
         </div>
         <div id='viewport' className=''>
@@ -36,13 +38,17 @@ function App() {
         </div>
         <div id='inspector-panel' className='panel ver-p'>
           <Rows>
-          <Row>
+            <Row>
               <Tab>Project</Tab>
               <Tab>Layers</Tab>
               <Tab>Actions</Tab>
             </Row>
+            <Hr />
             <Row>
               <Title>Inspector Panel</Title>
+            </Row>
+            <Row>
+              <TextInput>placeholder</TextInput>
             </Row>
           </Rows>
         </div>
@@ -52,3 +58,7 @@ function App() {
 }
 
 export default App;
+
+
+// Button takes in a function defined in App and is used in onCLick event
+// That function returns a <Row> (type="interactive" and <Layer> (with {layerInfo.name}) into some parent

@@ -62,3 +62,31 @@ Viewport
 3. Create basic form of all UI components (renders HTML) (minus states)
 4. Create custom Hooks and Feature Functions; add to components
 5. Refine components presentation
+
+New Layer btn
+
+User hits New layer:
+
+- New Layer component added to bottom of Rows (above new layer btn)
+  - Layer in active state
+  - addComponent(component, parent, id(optional))
+  - removeComponent(component, parent, id(optional))
+- Layer Object created; Added to Layers Array
+- Inspector panel changes to Layers Tab
+- Layers tab displays Layer Object info
+  - Layer name
+  - Number of files (if any)
+  - Layer width/height/x/y
+- Viewport changes to file upload component
+  - Empty state
+
+_Presentation logic:_
+
+- no changes
+
+_Business logic:_ Creates a layer object; Added to Layers Array
+_Implementation logic:_
+
+conditionally returns JSX based on (element info, state, onClick). Using Implementation Hook state it changes button state style and button name to filename. useImagePreview is used in another Component PreviewImage. JSX with correct image gets rendered.
+
+_Implementation logic:_ useLayerName(), useImagePreview() Sets state using Business logic functions. Returns object with callback functions and state value. For Presentation logic to use.
