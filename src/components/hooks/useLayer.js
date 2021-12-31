@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Row from './Row'
-import Layer from './Layer'
+import Row from '../ui/Row';
+import Layer from '../ui/Layer';
 
 let num = 0;
 const layers = []

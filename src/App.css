@@ -229,5 +229,11 @@ canvas {
 	margin-top: 20px;
 }
 
+#upload-view {
+	width: 250px;
+	height: 150px;
+	background-color: aqua;
+}
+
 /* #inspector-panel {
 } */

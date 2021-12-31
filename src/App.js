@@ -1,17 +1,16 @@
 import './App.css';
-import Button from './components/Button';
-import Rows from './components/Rows';
-import Row from './components/Row';
-import Title from './components/Title';
-import Canvas from './components/Canvas';
-import Tab from './components/Tab';
-import TextInput from './components/TextInput';
-import Hr from './components/Hr';
-import { useLayer } from './components/useLayer'
-
+import Button from './components/ui/Button';
+import Rows from './components/ui/Rows';
+import Row from './components/ui/Row';
+import Title from './components/ui/Title';
+import Tab from './components/ui/Tab';
+import TextInput from './components/ui/TextInput';
+import Hr from './components/ui/Hr';
+import Viewport from './components/ui/Viewport';
+import LayersPanel from './components/ui/LayersPanel';
 
 function App() {
-  const { onClickNewLayerComp, elementArray } = useLayer()
+
 
   return (
     <div className="App">
@@ -23,19 +22,8 @@ function App() {
         <Button>Export</Button>
       </div>
       <div id='main-container'>
-        <div id='layers-panel' className='panel ver-p'>
-          <Rows>
-            <Row>
-              <Title>Layers panel</Title>
-            </Row>
-            <Hr />
-            {elementArray}
-            <Button onClick={onClickNewLayerComp}>New layer</Button>
-          </Rows>
-        </div>
-        <div id='viewport' className=''>
-          <Canvas></Canvas>
-        </div>
+        <LayersPanel></LayersPanel>
+        <Viewport view="canvas"></Viewport>
         <div id='inspector-panel' className='panel ver-p'>
           <Rows>
             <Row>
