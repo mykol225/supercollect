@@ -24,12 +24,14 @@ export const useLayer = () => {
   }
 
   const createNewElement = () => {
+    // console.log(layers.length);
+    // console.log(`row${layers.length}`);
     elArray.push(
       <Row key={`row${layers.length}`} type="interactive">
         <Layer key={`layer${layers.length}`}>{layers[layers.length - 1].name}</Layer>
       </Row>
     )
-    return <div>{elArray}</div>
+    return <div id="layer-rows-container">{elArray}</div>
   }
 
   const [layerArray, setLayerArray] = useState([])

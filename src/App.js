@@ -1,16 +1,21 @@
 import './App.css';
 import Button from './components/ui/Button';
-import Rows from './components/ui/Rows';
-import Row from './components/ui/Row';
-import Title from './components/ui/Title';
-import Tab from './components/ui/Tab';
-import TextInput from './components/ui/TextInput';
-import Hr from './components/ui/Hr';
 import Viewport from './components/ui/Viewport';
 import LayersPanel from './components/ui/LayersPanel';
+import InspectorPanel from './components/ui/InspectorPanel';
+import { useEffect, useState } from 'react';
 
 function App() {
+  useEffect(()=> console.log("App rendered"))
 
+  const [childData, setChildData] = useState([''])
+
+
+  useEffect(() => {
+    console.log(`rerendered AND childData state was updated`);
+    console.log(childData);
+  }, [childData])
+  
 
   return (
     <div className="App">
@@ -22,24 +27,9 @@ function App() {
         <Button>Export</Button>
       </div>
       <div id='main-container'>
-        <LayersPanel></LayersPanel>
+        <LayersPanel passChildData={setChildData}></LayersPanel>
         <Viewport view="canvas"></Viewport>
-        <div id='inspector-panel' className='panel ver-p'>
-          <Rows>
-            <Row>
-              <Tab>Project</Tab>
-              <Tab>Layers</Tab>
-              <Tab>Actions</Tab>
-            </Row>
-            <Hr />
-            <Row>
-              <Title>Inspector Panel</Title>
-            </Row>
-            <Row>
-              <TextInput>placeholder</TextInput>
-            </Row>
-          </Rows>
-        </div>
+        <InspectorPanel parentData={childData}></InspectorPanel>
       </div>
     </div>
   );

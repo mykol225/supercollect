@@ -90,3 +90,46 @@ _Implementation logic:_
 conditionally returns JSX based on (element info, state, onClick). Using Implementation Hook state it changes button state style and button name to filename. useImagePreview is used in another Component PreviewImage. JSX with correct image gets rendered.
 
 _Implementation logic:_ useLayerName(), useImagePreview() Sets state using Business logic functions. Returns object with callback functions and state value. For Presentation logic to use.
+
+---
+
+Feature: When user clicks a layer, the layer information is displayed in the inpector panel
+
+- create a temp < p > component in inspector panel
+- create some function that breaks down the layer object into html elements
+- need click handler on layer
+- need a way to add or remove components based on what's selected
+
+---
+
+Observer pattern: The Observer called "subject" maintains a list of dependencies called "observers", and automatically notifies them of any change of state, usually calling one of it's methods.
+
+Subject Class Methods
+attach: so observers can register and recieve notifications when data is updated
+detach: so observers can unsubscribe when they dont want any notifications (like if a component is unmounted. We no longer need references in memeory causing memory leaks)
+notify: will notify registered observers whenever the data changes.
+
+In Subject
+Set observers as an array
+attach will push observer into array
+detach will filter(remove)from array
+create function that will notify observers
+create function that will use notify method at fixed intervals (like every second)
+
+In Observer component
+import Subject class
+useState to store state
+arrow function to call the setState function in useState
+useEffect onMount to call subject "attach" method with arrow function as argument
+on unmount (return line) called detach with same argument
+return jsx with state <- renders the html with the current state
+
+Subject: Layer
+Observers: Layer list, Inspector panel, Viewport
+
+Make a LayerSubject class
+-observers array <- observers are just a list of callback functions from components
+-attach method that pushes observer argument into observers array
+-detach methos that uses filter to remove observer argument from observers array
+-notify methood that uses forEach to iterate through the array of observers
+-updateLayer (notify) method that notifys observer when there's a change to the layer data. The notification is a function made in the Observer component that sets the state of the component.
