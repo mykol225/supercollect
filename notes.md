@@ -124,12 +124,32 @@ useEffect onMount to call subject "attach" method with arrow function as argumen
 on unmount (return line) called detach with same argument
 return jsx with state <- renders the html with the current state
 
-Subject: Layer
+**Subject: Layer**
 Observers: Layer list, Inspector panel, Viewport
 
-Make a LayerSubject class
--observers array <- observers are just a list of callback functions from components
--attach method that pushes observer argument into observers array
--detach methos that uses filter to remove observer argument from observers array
--notify methood that uses forEach to iterate through the array of observers
--updateLayer (notify) method that notifys observer when there's a change to the layer data. The notification is a function made in the Observer component that sets the state of the component.
+**Make a LayerSubject class**
+
+- observers array <- observers are just a list of callback functions from components
+- attach method that pushes observer argument into observers array
+- detach method that uses filter to remove observer argument from observers array
+- notify methood that uses forEach to iterate through the array of observers
+- updateLayer method that uses notify to notify observer when there's a change to the layer data. The notification is a function made in the Observer component that sets the state of the component.
+
+**Observers**
+LayersPanel
+
+**Subject 2**
+Layer (onclick)
+
+**Subject -> Observer for when a new layer is added**
+NewLayerBtnOnClick in LayersPanel -> useLayerHook -> layerArray -> LayersSubject
+useLayer should update LayersSubject
+
+**Subject -> Observer for when a new layer is added**
+LayersSubject -> LayersPanel
+LayersSubject -> InspectorPanel
+LayersSubject -> Viewport
+
+**Subject -> Observer for when user clicks on a layer**
+Layer -> LayersSubject
+Layer

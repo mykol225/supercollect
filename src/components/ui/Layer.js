@@ -1,6 +1,10 @@
+import Row from './Row'
+
 const Layer = props => {
   return(
-    <p className='layer'>{props.children}</p>
+    <Row type="interactive" id={props.id} onClick={props.onClick}>
+      <span className='layer' id={props.id}>{props.children}</span>
+    </Row>
   )
 }
 

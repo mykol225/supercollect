@@ -4,27 +4,22 @@ import Row from "./Row"
 import Hr from "./Hr"
 import Title from "./Title"
 import TextInput from "./TextInput"
+import AppContext from "../../AppContext"
 
-import { useEffect, useState } from "react"
+import { useContext } from "react"
 
 const InspectorPanel = props => {
-  useEffect(()=> console.log("Inspector panel rendered"))
+  const context = useContext(AppContext)
 
-  const [layer, setLayer] = useState({})
+  const index = context.selectedLayer
 
-  useEffect(() => {
-    setLayer(props.parentData)
-    console.log("inspector: parentData set as state on each render");
-  }, [])
-
-  useEffect(() => {
-    console.log("inspector: runs AFTER parentData causes a rerender, AND parentData has changed");
-    console.log(props.parentData);
-    console.log(layer);
-  }, [layer])
-
-
-
+  const layerInfo = {
+    layerName: context.layers[index] ? `Name:${context.layers[index].name}` : '',
+    layerXY: context.layers[index] ? `X:${context.layers[index].x} Y:${context.layers[index].y}` : '',
+    layerWH: context.layers[index] ? `W:${context.layers[index].w} H:${context.layers[index].h}` : '',
+    layerId: context.layers[index] ? `Layer id: ${context.layers[index].id}` : '',
+    layerFile: context.layers[index] ? `Files:${context.layers[index].files}` : '',
+  }
 
   return(
     <div id='inspector-panel' className='panel ver-p'>
@@ -39,16 +34,19 @@ const InspectorPanel = props => {
           <Title>Inspector Panel</Title>
         </Row>
         <Row>
-          <p>{props.parentData[0] ? props.parentData[0].name : ""}</p>
+          <span>{layerInfo.layerName}</span>
         </Row>
         <Row>
-          <p>{props.parentData[0] ? `x:${props.parentData[0].x}  y:${props.parentData[0].y}` : ""}</p>
+          <span>{layerInfo.layerXY}</span>
         </Row>
         <Row>
-          <p>{props.parentData[0] ? `w:${props.parentData[0].w}  h:${props.parentData[0].h}` : ""}</p>
+          <span>{layerInfo.layerWH}</span>
         </Row>
         <Row>
-          <p>{props.parentData[0] ? `files:${props.parentData[0].files}` : ""}</p>
+          <span>{layerInfo.layerId}</span>
+        </Row>
+        <Row>
+          <span>{layerInfo.layerFile}</span>
         </Row>
         <Row>
           <TextInput>placeholder</TextInput>

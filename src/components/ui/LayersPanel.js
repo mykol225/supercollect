@@ -3,38 +3,60 @@ import Row from "./Row"
 import Hr from "./Hr"
 import Button from "./Button"
 import Title from "./Title"
-import { useLayer } from "../hooks/useLayer"
-import { useEffect } from "react"
-import { useState } from "react"
+import Layer from "./Layer"
+import { genId } from "../../utils/genId"
+
+import { useContext, useEffect, useState} from "react"
+import AppContext from "../../AppContext"
+
+let num = 1;
 
 const LayersPanel = props => {
-  useEffect(()=> console.log("Layers panel rendered"))
-  const { onClickNewLayerComp, layerArray, elementArray } = useLayer()
-  const [state, setState] = useState()
+  // get global context
+  const context = useContext(AppContext)
 
-  // pass data to App.js
-  const dataHandler = data => {
-    props.passChildData(data)
-    console.log("LayerPanel: data is being passed up to parent (App), should cause a re-render of App");
+  //layers list
+  const [layersState, setLayersState] = useState([])
+  const [layerCompState, setLayerCompState] = useState([])
+
+  const onClickNewLayerHandler = () => {
+    context.addLayer(createLayer())
   }
 
-  const onClickHandler = () => {
-    onClickNewLayerComp()
-    setState(layerArray)
-    // layerArray gets set as State, but is empty on first go around. Correct on later ones.
+  useEffect(()=>{
+    if (context.layers.length) {
+      setLayersState(context.layers)
+
+      const index = context.layers.length - 1
+      context.setSelectedLayerIndex(index)
+
+      const oldArray = context.layers
+      let newArray = oldArray.map( layer => {
+        return <Layer key={layer.id} id={layer.id} onClick={onClickSelectedLayerHandler}>{layer.name}</Layer>
+      })
+      setLayerCompState(newArray)
+    }
+  }, [context.layers])
+
+  const createLayer = ( width = 100, height = 100, xcoor = 0, ycoor = 0, files = 'files' ) => {
+    const layer = {
+      name: `layer ${num}`,
+      w: width * num,
+      h: height * num,
+      x: xcoor + num,
+      y: ycoor + num,
+      files: files,
+      id: genId('layer-')
+    }
+    num++
+    return layer
   }
 
-  //this only gets called AFTER rerender AND the state changed, but only a couple times... stops working
-  // state change may need to come from the parent App
-  useEffect(()=> {
-    dataHandler(layerArray)
-  },[state])
-
-
-  useEffect(()=> {
-    dataHandler(layerArray)
-  })
-
+  //setting selected layer
+  const onClickSelectedLayerHandler = event => {
+    const index = context.layers.findIndex(l => l.id == event.target.id)
+    context.setSelectedLayerIndex(index)
+  }
 
   return(
     <div id='layers-panel' className='panel ver-p'>
@@ -43,8 +65,8 @@ const LayersPanel = props => {
         <Title>Layers panel</Title>
       </Row>
       <Hr />
-      {elementArray}
-      <Button onClick={onClickHandler}>New layer</Button>
+      {layerCompState}
+      <Button onClick={onClickNewLayerHandler}>New layer</Button>
     </Rows>
   </div>
   )

@@ -3,35 +3,41 @@ import Button from './components/ui/Button';
 import Viewport from './components/ui/Viewport';
 import LayersPanel from './components/ui/LayersPanel';
 import InspectorPanel from './components/ui/InspectorPanel';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import AppContext from './AppContext';
 
 function App() {
-  useEffect(()=> console.log("App rendered"))
+  const [selectedLayerIndex, setSelectedLayerIndex] = useState(0)
+  const [layers, setLayers] = useState([])
 
-  const [childData, setChildData] = useState([''])
+  const addLayer = newLayer => {
+    setLayers(layers => [...layers, newLayer])
+  }
 
-
-  useEffect(() => {
-    console.log(`rerendered AND childData state was updated`);
-    console.log(childData);
-  }, [childData])
-  
+  const global = {
+    selectedLayer: selectedLayerIndex,
+    layers: layers,
+    setSelectedLayerIndex,
+    addLayer,
+  }
 
   return (
-    <div className="App">
-      <div id='tools-panel' className='panel hor-p'>
-        <div id="tools">
-          <Button>+ New layer</Button>
+    <AppContext.Provider value={global}>
+      <div className="App">
+        <div id='tools-panel' className='panel hor-p'>
+          <div id="tools">
+            <Button>+ New layer</Button>
+          </div>
+          <h3>New Collection</h3>
+          <Button>Export</Button>
         </div>
-        <h3>New Collection</h3>
-        <Button>Export</Button>
+        <div id='main-container'>
+          <LayersPanel></LayersPanel>
+          <Viewport view="canvas"></Viewport>
+          <InspectorPanel></InspectorPanel>
+        </div>
       </div>
-      <div id='main-container'>
-        <LayersPanel passChildData={setChildData}></LayersPanel>
-        <Viewport view="canvas"></Viewport>
-        <InspectorPanel parentData={childData}></InspectorPanel>
-      </div>
-    </div>
+    </AppContext.Provider>
   );
 }
 

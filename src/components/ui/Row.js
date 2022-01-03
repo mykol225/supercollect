@@ -2,7 +2,7 @@ const Row = props => {
 
   if (props.type === 'interactive') {
     return(
-      <div className="row btn-row">{props.children}</div>
+      <div onClick={props.onClick} className="row btn-row" id={props.id}>{props.children}</div>
     )
   } else {
     return(
