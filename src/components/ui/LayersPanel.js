@@ -54,7 +54,7 @@ const LayersPanel = props => {
 
   //setting selected layer
   const onClickSelectedLayerHandler = event => {
-    const index = context.layers.findIndex(l => l.id == event.target.id)
+    const index = context.layers.findIndex(l => l.id === event.target.id)
     context.setSelectedLayerIndex(index)
   }
 

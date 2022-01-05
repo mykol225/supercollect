@@ -1,4 +1,5 @@
-import { createContext } from "react/cjs/react.development";
+
+import React, { createContext } from 'react';
 
 const AppContext = createContext();
 
