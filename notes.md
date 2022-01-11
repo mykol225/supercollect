@@ -141,15 +141,33 @@ LayersPanel
 **Subject 2**
 Layer (onclick)
 
-**Subject -> Observer for when a new layer is added**
-NewLayerBtnOnClick in LayersPanel -> useLayerHook -> layerArray -> LayersSubject
-useLayer should update LayersSubject
+**Actions**
 
-**Subject -> Observer for when a new layer is added**
+1. user selects an existing layer
+2. user clicks newLayer
+
+**SelectedLayerSubject -> Observer for when a user clicks an existing layer**
+LayerSubject tells InspectorPanel to display correct layer
+LayerSubject tells Viewport to display correct component with correct info
+Data that changes is not the layer list, but the selected Layer.
+
+**LayersSubject -> Observer for when a new layer is added**
 LayersSubject -> LayersPanel
 LayersSubject -> InspectorPanel
 LayersSubject -> Viewport
 
 **Subject -> Observer for when user clicks on a layer**
 Layer -> LayersSubject
-Layer
+
+**For notifying LayerSubject when new layer is added**
+NewLayerBtnOnClick in LayersPanel -> useLayerHook -> layerArray -> LayersSubject
+useLayer should update LayersSubject
+
+---
+
+-add some global selectedLayer state in App
+-add onCLick to useLayer JSX so that the state in App changes
+-when that state changes, notify SelectedLayerSubject
+
+-make a SelectedLayerSubject.
+-let App subscribe to it.

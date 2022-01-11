@@ -14,12 +14,20 @@ function App() {
     setLayers(layers => [...layers, newLayer])
   }
 
+  const updateLayer = layerObj => {
+    let tempLayers = layers
+    tempLayers[selectedLayerIndex] = layerObj
+    setLayers(tempLayers)
+  }
+
   const global = {
     selectedLayer: selectedLayerIndex,
     layers: layers,
     setSelectedLayerIndex,
     addLayer,
+    updateLayer,
   }
+
 
   return (
     <AppContext.Provider value={global}>

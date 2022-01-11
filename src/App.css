@@ -87,6 +87,7 @@ canvas {
 .h3 {
 	font-size: 12px;
 	font-weight: 700;
+	line-height: 14px;
 }
 
 .hidden {
@@ -162,6 +163,8 @@ canvas {
 	color: var(--gray10);
 	user-select: none;
 	justify-content: stretch;
+	align-items: center;
+	gap: 4px;
 }
 
 /* .btn-row {
@@ -195,6 +198,19 @@ canvas {
 .tab:active {
 	color: var(--white);
 	font-weight: 700;
+}
+
+.text-input {
+	font-size: 12px;
+	vertical-align: middle;
+	color: var(--white);
+	padding: 4px;
+	width: 100%;
+}
+
+.text-input:focus {
+	color: var(--white);
+	box-shadow: 0px 0px 0px 1px var(--accent-dk);
 }
 
 /****** MAIN ******/

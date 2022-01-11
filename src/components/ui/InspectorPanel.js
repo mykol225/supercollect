@@ -6,22 +6,45 @@ import Title from "./Title"
 import TextInput from "./TextInput"
 import AppContext from "../../AppContext"
 
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 
 const InspectorPanel = props => {
   const context = useContext(AppContext)
 
   const index = context.selectedLayer
 
-  const layerInfo = {
-    layerName: context.layers[index] ? `Name:${context.layers[index].name}` : '',
-    layerXY: context.layers[index] ? `X:${context.layers[index].x} Y:${context.layers[index].y}` : '',
-    layerWH: context.layers[index] ? `W:${context.layers[index].w} H:${context.layers[index].h}` : '',
-    layerId: context.layers[index] ? `Layer id: ${context.layers[index].id}` : '',
-    layerFile: context.layers[index] ? `Files:${context.layers[index].files}` : '',
+  const [layerInfo, setLayerInfo] = useState({
+    layerName: context.layers[index] ? `${context.layers[index].layerName}` : '',
+    layerX: context.layers[index] ? `${context.layers[index].layerX}` : '',
+    layerY: context.layers[index] ? `${context.layers[index].layerY}` : '',
+    layerW: context.layers[index] ? `${context.layers[index].layerW}` : '',
+    layerH: context.layers[index] ? `${context.layers[index].layerH}` : '',
+    layerId: context.layers[index] ? `${context.layers[index].layerId}` : '',
+    layerFile: context.layers[index] ? `${context.layers[index].layerFile}` : ''
+  })
+
+  //display selected layer
+  useEffect( () => {
+    if (context.layers.length) {
+      setLayerInfo(context.layers[index])
+    }
+  },[index])
+
+  //keep input changes
+  const handleChange = e => {
+    const { name, value } = e.target
+    setLayerInfo(layerInfo => ({...layerInfo, ...{[name]:value}}))
   }
 
+  //update layers to include changed info
+  const handleOnBlur = () => {
+    context.updateLayer(layerInfo)
+  }
+
+  //regex needed for each field; to be used in handleChange function
+
   return(
+
     <div id='inspector-panel' className='panel ver-p'>
       <Rows>
         <Row>
@@ -31,25 +54,27 @@ const InspectorPanel = props => {
         </Row>
         <Hr />
         <Row>
-          <Title>Inspector Panel</Title>
+          <Title>Layers</Title>
         </Row>
         <Row>
-          <span>{layerInfo.layerName}</span>
+          <span className="h3">Name </span>
+          <TextInput value={layerInfo.layerName} name={"layerName"} tabIndex={0} defaultValue={layerInfo.layerName} onChange={e => handleChange(e)} onFocus={e => {} } onBlur={ handleOnBlur } />
         </Row>
         <Row>
-          <span>{layerInfo.layerXY}</span>
+          <span className="h3">X </span>
+          <TextInput value={layerInfo.layerX} name={"layerX"} defaultValue={layerInfo.layerX} onChange={e => handleChange(e)} onFocus={e => {} } onBlur={ handleOnBlur }  />
+          <span className="h3">Y </span>
+          <TextInput value={layerInfo.layerY} name={"layerY"} defaultValue={layerInfo.layerY} onChange={e => handleChange(e)} onFocus={e => {} } onBlur={ handleOnBlur }  />
         </Row>
         <Row>
-          <span>{layerInfo.layerWH}</span>
+          <span className="h3">W </span>
+          <TextInput value={layerInfo.layerW} name={"layerW"} defaultValue={layerInfo.layerW} onChange={e => handleChange(e)} onFocus={e => {} } onBlur={ handleOnBlur }  />
+          <span className="h3">H </span>
+          <TextInput value={layerInfo.layerH} name={"layerH"} defaultValue={layerInfo.layerH} onChange={e => handleChange(e)} onFocus={e => {} } onBlur={ handleOnBlur }  />
         </Row>
         <Row>
-          <span>{layerInfo.layerId}</span>
-        </Row>
-        <Row>
-          <span>{layerInfo.layerFile}</span>
-        </Row>
-        <Row>
-          <TextInput>placeholder</TextInput>
+          <span className="h3">Files </span>
+          <TextInput value={layerInfo.layerFile} name={"layerFile"} defaultValue={layerInfo.layerFile} onChange={e => handleChange(e)} onFocus={e => {} } onBlur={ handleOnBlur }  />
         </Row>
       </Rows>
     </div>
