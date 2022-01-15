@@ -17,7 +17,7 @@ function App() {
   const updateLayer = layerObj => {
     let tempLayers = layers
     tempLayers[selectedLayerIndex] = layerObj
-    setLayers(tempLayers)
+    setLayers([...tempLayers]) //spread temp array into a new array to trigger stateChange
   }
 
   const global = {
@@ -27,7 +27,6 @@ function App() {
     addLayer,
     updateLayer,
   }
-
 
   return (
     <AppContext.Provider value={global}>

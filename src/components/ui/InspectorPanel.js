@@ -53,9 +53,9 @@ const InspectorPanel = props => {
           <Tab>Actions</Tab>
         </Row>
         <Hr />
-        <Row>
+        {/* <Row>
           <Title>Layers</Title>
-        </Row>
+        </Row> */}
         <Row>
           <span className="h3">Name </span>
           <TextInput value={layerInfo.layerName} name={"layerName"} tabIndex={0} defaultValue={layerInfo.layerName} onChange={e => handleChange(e)} onFocus={e => {} } onBlur={ handleOnBlur } />

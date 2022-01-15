@@ -180,6 +180,11 @@ canvas {
 	color: var(--white);
 }
 
+.btn-row-active {
+	box-shadow: inset 0px 0px 0px 2px var(--accent-dk);
+	color: var(--white);
+}
+
 .title {
 	color: var(--white);
 }
