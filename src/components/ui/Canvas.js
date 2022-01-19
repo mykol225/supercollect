@@ -1,16 +1,18 @@
 import { useEffect, useRef, useCallback } from "react";
+import { useRect } from "../hooks/useRect";
 
 const Canvas = props => {
+  // hook to get current.rect object on window resize event
+  const [rect, ref] = useRect()
 
   const draw = useCallback(ctx => {
     ctx.fillStyle = '#800080'
     ctx.fillRect(100, 100, 20, 20)
   }, [])
 
-  const canvasRef = useRef(null)
-
+  // update canvas whenever draw or rect changes 
   useEffect(()=> {
-    const canvas = canvasRef.current
+    const canvas = ref.current
     const context = canvas.getContext('2d')
     const dpr = window.devicePixelRatio || 1
     const rect = canvas.getBoundingClientRect()
@@ -22,15 +24,9 @@ const Canvas = props => {
     context.fillRect(0, 0, context.canvas.width, context.canvas.height)
 
     draw(context)
-  }, [draw])
+  }, [rect, draw])
 
-  return <canvas ref={canvasRef} {...props}></canvas>
+  return <canvas ref={ref} {...props}></canvas>
 }
 
 export default Canvas
-
-
-
-/* 
-Create hook for rendering canvas: https://gist.github.com/IcanDivideBy0/23552eb3aa196a9049670686d13de9de
-*/
