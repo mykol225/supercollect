@@ -1,38 +1,262 @@
+/****** CUSTOM PROPERTIES ******/
+
+:root {
+	/* COLORS */
+	--white: #ffffff;
+	--gray10: #9c9cb6;
+	--gray30: #333346;
+	--gray50: #262631;
+	--gray70: #1a1b25;
+	--gray90: #111318;
+	--black: #090a0e;
+
+	--accent: #683ad3;
+	--accent-lt: #683ad3;
+	--accent-dk: #592dc0;
+
+	--success: #35c741;
+	--success-lt: #46df4e;
+	--success-dk: #21b842;
+
+	--error: #c72828;
+	--error-lt: #da3737;
+	--error-dk: #aa1b1b;
+	--error-xdk: #35161b;
+
+	--warning: #d6a844;
+	--warning-lt: #ebc254;
+	--warning-dk: #d4913a;
+
+	/* CORNERS */
+	--corner-md: 3px;
+	--corner-lg: 6px;
+}
+
+/****** CSS RESET ******/
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	overflow: hidden;
+	background-color: var(--black);
+	height: 100%;
+}
+
+button,
+select,
+input {
+	appearance: none;
+	border: none;
+	background: none;
+	color: var(--gray10);
+}
+
+input:focus {
+	appearance: none;
+	border: none;
+	outline: none;
+	box-shadow: 0px 0px 0px 1px var(--accent-dk);
+}
+
+p,
+h1,
+h2,
+h3 {
+	margin: 0;
+}
+
+#root,
 .App {
-  text-align: center;
+	height: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App {
+	padding: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+canvas {
+	width: 100%;
+	height: 100%;
+	border-radius: var(--corner-md);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/***** SHARED CLASSES *****/
+
+.h3 {
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 14px;
 }
 
-.App-link {
-  color: #61dafb;
+.hidden {
+	display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.panel {
+	box-sizing: border-box;
+	background-color: var(--gray90);
+	color: var(--white);
+	font-size: 12px;
+	border-radius: var(--corner-lg);
 }
+
+.hr {
+	height: 1px;
+	border-bottom: 1px solid var(--gray50);
+	padding-bottom: 5px;
+}
+
+.hor-p {
+	height: auto;
+	width: 100%;
+}
+
+.ver-p {
+	min-width: 200px;
+	padding-top: 5px;
+	flex-basis: 250px;
+	flex-shrink: 2;
+}
+
+.btn {
+	padding: 10px;
+	border-radius: var(--corner-md);
+	box-shadow: inset 0px 0px 0px 1px var(--gray30);
+	color: var(--gray10);
+	user-select: none;
+}
+
+.btn:hover {
+	box-shadow: inset 0px 0px 0px 1px #464646;
+	background-color: var(--gray50);
+	color: var(--white);
+}
+.btn:active {
+	box-shadow: none;
+	background-color: var(--accent);
+}
+
+.destructive-btn {
+	box-shadow: inset 0px 0px 0px 1px var(--error);
+	color: var(--error);
+}
+
+.destructive-btn:hover {
+	box-shadow: inset 0px 0px 0px 1px var(--error-lt);
+	background-color: var(--error-xdk);
+	color: var(--error-lt);
+}
+
+.destructive-btn:active {
+	box-shadow: none;
+	background-color: var(--error);
+	color: var(--white);
+}
+
+.rows {
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	padding: 10px 15px 10px 15px;
+	color: var(--gray10);
+	user-select: none;
+	justify-content: stretch;
+	align-items: center;
+	gap: 4px;
+}
+
+/* .btn-row {
+} */
+
+.btn-row:hover {
+	background-color: var(--gray70);
+	color: var(--white);
+}
+
+.btn-row:active {
+	box-shadow: inset 0px 0px 0px 2px var(--accent-dk);
+	color: var(--white);
+}
+
+.btn-row-active {
+	box-shadow: inset 0px 0px 0px 2px var(--accent-dk);
+	color: var(--white);
+}
+
+.title {
+	color: var(--white);
+}
+
+.tab {
+	font-size: 11px;
+	font-weight: 700;
+	text-align: left;
+	width: 100%;
+}
+
+.tab:hover {
+	color: var(--gray10);
+}
+
+.tab:active {
+	color: var(--white);
+	font-weight: 700;
+}
+
+.text-input {
+	font-size: 12px;
+	vertical-align: middle;
+	color: var(--white);
+	padding: 4px;
+	width: 100%;
+}
+
+.text-input:focus {
+	color: var(--white);
+	box-shadow: 0px 0px 0px 1px var(--accent-dk);
+}
+
+/****** MAIN ******/
+
+#tools-panel {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+#tools {
+	display: flex;
+	gap: 10px;
+}
+
+#main-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+	height: 100%;
+	margin-top: 10px;
+	gap: 10px;
+}
+
+#viewport {
+	flex-grow: 1;
+	border-radius: var(--corner-md);
+}
+
+#upload-view {
+	width: 250px;
+	height: 150px;
+	background-color: aqua;
+}
+
+/* #layers-panel {
+} */
+
+/* #inspector-panel {
+} */

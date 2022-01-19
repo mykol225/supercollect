@@ -1,25 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
+import Button from './components/ui/Button';
+import Viewport from './components/ui/Viewport';
+import LayersPanel from './components/ui/LayersPanel';
+import InspectorPanel from './components/ui/InspectorPanel';
+import { useState } from 'react';
+import AppContext from './AppContext';
 
 function App() {
+  const [selectedLayerIndex, setSelectedLayerIndex] = useState(0)
+  const [layers, setLayers] = useState([])
+
+  const addLayer = newLayer => {
+    setLayers(layers => [...layers, newLayer])
+  }
+
+  const updateLayer = layerObj => {
+    let tempLayers = layers
+    tempLayers[selectedLayerIndex] = layerObj
+    setLayers([...tempLayers]) //spread temp array into a new array to trigger stateChange
+  }
+
+  const global = {
+    selectedLayer: selectedLayerIndex,
+    layers: layers,
+    setSelectedLayerIndex,
+    addLayer,
+    updateLayer,
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={global}>
+      <div className="App">
+        <div id='tools-panel' className='panel hor-p'>
+          <div id="tools">
+            <Button>+ New layer</Button>
+          </div>
+          <h3>New Collection</h3>
+          <Button>Export</Button>
+        </div>
+        <div id='main-container'>
+          <LayersPanel></LayersPanel>
+          <Viewport view="canvas"></Viewport>
+          <InspectorPanel></InspectorPanel>
+        </div>
+      </div>
+    </AppContext.Provider>
   );
 }
 
 export default App;
+
+
+// Button takes in a function defined in App and is used in onCLick event
+// That function returns a <Row> (type="interactive" and <Layer> (with {layerInfo.name}) into some parent
